@@ -86,7 +86,7 @@ class JoblyApi {
    */
 
   static async deleteCompany(handle) {
-    const res = await this.request(`companies/${handle}`, method="delete");
+    const res = await this.request(`companies/${handle}`, {}, "delete");
     return res.deleted;
   }
 
@@ -149,7 +149,7 @@ class JoblyApi {
    *    'id'
    */
   static async deleteJob(id) {
-    const res = await this.request(`jobs/${id}`, method="delete");
+    const res = await this.request(`jobs/${id}`, {}, "delete");
     return res.job;
   }
 
@@ -255,7 +255,7 @@ class JoblyApi {
    * -  { username }
    */
   static async deleteUser(username){
-    const res = await this.request(`users/${username}`, method = "delete");
+    const res = await this.request(`users/${username}`, {}, "delete");
     return res.deleted
   }
 
@@ -269,7 +269,7 @@ class JoblyApi {
    * -  { jobId }
    */
   static async applyForJob(username, jobId){
-    const res = await this.request(`users/${username}/jobs/${jobId}`, method="post");
+    const res = await this.request(`users/${username}/jobs/${jobId}`, {}, "post");
     return res.applied
   }
 }

@@ -1,5 +1,12 @@
 import React from 'react';
 import { Route, Redirect } from "react-router-dom";
+import HomePage from './HomePage.js'
+import CompanyList from './CompanyList.js'
+import CompanyDetail from './CompanyDetail.js'
+import JobList from './HomePage.js'
+import LoginForm from './LoginForm.js'
+import SignupForm from './SignupForm.js'
+import ProfileForm from './ProfileForm.js'
 
 /** Defines all the routes 
  *  and redirects homepage route if nothing matches 

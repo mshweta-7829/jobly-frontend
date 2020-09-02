@@ -47,7 +47,7 @@ function NavBar(props) {
 
   return (
     <div className="NavBar">
-      <NavLink to="/">Jobly</NavLink>
+      <NavLink exact to="/">Jobly</NavLink>
       {showLoggedinOrSignupNavs()}
     </div>
   )
