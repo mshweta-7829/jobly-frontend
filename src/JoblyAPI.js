@@ -34,10 +34,12 @@ class JoblyApi {
 
   // Individual API routes
 
+  //Company Methods
+
   /** Get details on a company by handle. */
 
   static async getCompany(handle) {
-    let res = await this.request(`companies/${handle}`);
+    const res = await this.request(`companies/${handle}`);
     return res.company;
   }
 
@@ -46,26 +48,28 @@ class JoblyApi {
    */
 
   static async getAllCompanies() {
-    let res = await this.request(`companies/`);
+    const res = await this.request(`companies/`);
     return res.companies;
   }
 
-  /** Get all matched companies by minEmployees, maxEmployees and  nameLike (will find case-insensitive, partial matches)
+  /** Get all matched companies 
+   * {searchData: {minEmployees, maxEmployees and  nameLike}} (will find case-insensitive, partial matches)
    * returns -> [ { handle, name, description, numEmployees, logoUrl }, ...] 
    */
 
-  static async searchCompanies(minEmployees = minEmployees, maxEmployees = maxEmployees, nameLike = nameLike) {
-    let res = await this.request(`companies/`, { ...arguments });
+  static async searchCompanies(searchData) {
+    const res = await this.request(`companies/`, searchData);
     return res.companies;
   }
 
-  /** Patch all matched companies by minEmployees, maxEmployees and  nameLike (will find case-insensitive, partial matches)
-   * returns -> [ { handle, name, description, numEmployees, logoUrl }, ...] 
+  /** Patch a company (identified by handle) 
+   * {updateData: {name, description, numEmployees, logo_url}}
+   * 
+   * returns -> { handle, name, description, numEmployees, logo_url }
    */
 
-  static async updateCompany(handle, name = name, description = description, numEmployees = numEmployees, logo_url = logo_url) {
-    let args = [...arguments].slice(1)
-    let res = await this.request(`companies/${handle}`, { ...args }, "patch");
+  static async updateCompany(handle, updateData) {
+    const res = await this.request(`companies/${handle}`, updateData, "patch");
     return res.company;
   }
 
@@ -74,11 +78,68 @@ class JoblyApi {
    */
 
   static async deleteCompany(handle) {
-    let res = await this.request(`companies/${handle}`, "delete");
+    const res = await this.request(`companies/${handle}`, method="delete");
     return res.deleted;
   }
 
-  // obviously, you'll add a lot here ...
+
+  //Job Methods
+
+  /**Get all jobs 
+   * returns -> [ { id, title, salary, equity, companyHandle, companyName }, ...]
+  */
+  static async getJobs() {
+    const res = await this.request('jobs/');
+    return res.jobs
+  }
+
+  /** Get all matched jobs by searchData Obj
+   *    {searchData: {minSalary, hasEquity and title}} 
+   * (searchData properties are optional)
+   * returns -> [ { id, title, salary, equity, companyHandle, companyName }, ...]
+   */
+
+  static async searchJobs(searchData) {
+    const res = await this.request(`jobs/`, searchData);
+    return res.jobs;
+  }
+
+  /**Get a specific Job object based on job id
+   * returns -> { id, title, salary, equity, company }
+ *    where company is { handle, name, description, numEmployees, logoUrl }
+   */
+  static async getJob(id) {
+    const res = await this.request(`jobs/${id}`);
+    return res.job
+  }
+
+  /** Patch a job (identified by id) 
+   * Update parameters: {updateData: { title, salary, hasEquity }}
+   * 
+   * returns -> { id, title, salary, equity, companyHandle }
+   */
+  static async updateJob(id, updateData) {
+    const res = await this.request(`jobs/${id}`, updateData, 'patch');
+    return res.job
+  }
+
+  /**Delete Job
+   * returns -> job name
+   */
+  static async deleteJob(id) {
+    const res = await this.request(`jobs/${id}`);
+    return res.job;
+  }
+
+
+  // User Methods
+
+  /**Register a User
+   * params: Object of userData
+   *  e.g. { username, password, firstName, lastName, email }
+   * returns -> JWT token which can be used to authenticate further requests
+   */
+  static async registerUser(userData)
 }
 
 // for now, put token ("testuser" / "password" on class)
