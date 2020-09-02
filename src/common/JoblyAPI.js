@@ -47,7 +47,7 @@ class JoblyApi {
    * 
    * Params:
    * - object of optional search filters
-   * {minEmployees, maxEmployees and  nameLike} (will find case-insensitive, partial matches)
+   * {minEmployees, maxEmployees and  name} (will find case-insensitive, partial matches)
    * 
    * Returns array of company objects  
    * [ { handle, name, description, numEmployees, logoUrl }, ...] 
