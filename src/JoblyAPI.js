@@ -43,32 +43,17 @@ class JoblyApi {
     return res.company;
   }
 
-  /** Get all companies by handle.
+  /** Get all companies or Get some companies with filtered search.
    * 
    * Params:
-   * - company handle
+   * - object of optional search filters
+   * {minEmployees, maxEmployees and  nameLike} (will find case-insensitive, partial matches)
    * 
    * Returns array of company objects  
    * [ { handle, name, description, numEmployees, logoUrl }, ...] 
    */
 
-  static async getCompanies() {
-    const res = await this.request(`companies/`);
-    return res.companies;
-  }
-
-  /** Get some companies with filtered search
-   * 
-   * Params: 
-   * - object of optional search filters
-   * {minEmployees, maxEmployees and  nameLike} (will find case-insensitive, partial matches)
-   * 
-   * Returns: 
-   * - array of company objects 
-   *    [ { handle, name, description, numEmployees, logoUrl }, ...] 
-   */
-
-  static async searchCompanies(searchData) {
+  static async getOrSearchCompanies(searchData) {
     const res = await this.request(`companies/`, searchData);
     return res.companies;
   }
@@ -108,18 +93,7 @@ class JoblyApi {
 
   //Job Methods
 
-  /**Get all jobs 
-   * 
-   * Returns 
-   * - array of job objects
-   *    [ { id, title, salary, equity, companyHandle, companyName }, ...]
-  */
-  static async getJobs() {
-    const res = await this.request('jobs/');
-    return res.jobs
-  }
-
-  /** Get some jobs with filtered search
+  /**  Get all jobs  or Get some jobs with filtered search
    * 
    * Params:
    * - object of optional search filters
@@ -130,7 +104,7 @@ class JoblyApi {
    *    [ { id, title, salary, equity, companyHandle, companyName }, ...]
    */
 
-  static async searchJobs(searchData) {
+  static async getOrSearchJobs(searchData) {
     const res = await this.request(`jobs/`, searchData);
     return res.jobs;
   }
@@ -175,7 +149,7 @@ class JoblyApi {
    *    'id'
    */
   static async deleteJob(id) {
-    const res = await this.request(`jobs/${id}`);
+    const res = await this.request(`jobs/${id}`, method="delete");
     return res.job;
   }
 
@@ -254,8 +228,49 @@ class JoblyApi {
    *        where jobs is { id, title, companyHandle, companyName, state }
    */
   static async getUser(username){
-    const res = await this.request(`users/`, username);
+    const res = await this.request(`users/${username}`);
     return res.users
+  }
+
+  /** Update a User
+   * 
+   * Params:
+   * - username
+   * - userData =  { firstName, lastName, password, email }
+   *
+   * Returns 
+   * - { username, firstName, lastName, email, isAdmin }
+   */
+  static async updateUser(username, userData){
+    const res = await this.request(`users/${username}`, userData, "patch");
+    return res.user
+  }
+
+  /** Delete a User
+   * 
+   * Params:
+   * - username
+   *
+   * Returns 
+   * -  { username }
+   */
+  static async deleteUser(username){
+    const res = await this.request(`users/${username}`, method = "delete");
+    return res.deleted
+  }
+
+  /** Apply for a Job
+   * 
+   * Params:
+   * - username
+   * - jobId
+   *
+   * Returns 
+   * -  { jobId }
+   */
+  static async applyForJob(username, jobId){
+    const res = await this.request(`users/${username}/jobs/${jobId}`, method="post");
+    return res.applied
   }
 }
 

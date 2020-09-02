@@ -1,0 +1,8 @@
+.NavBar a{
+  color: blue;
+}
+
+.NavBar a.active{
+  color:black;
+  font-weight: bold;
+}
