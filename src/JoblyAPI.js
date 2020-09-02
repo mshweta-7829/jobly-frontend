@@ -47,7 +47,7 @@ class JoblyApi {
    * returns -> [ { handle, name, description, numEmployees, logoUrl }, ...] 
    */
 
-  static async getAllCompanies() {
+  static async getCompanies() {
     const res = await this.request(`companies/`);
     return res.companies;
   }
@@ -132,14 +132,62 @@ class JoblyApi {
   }
 
 
-  // User Methods
+  // Auth Methods
 
   /**Register a User
    * params: Object of userData
    *  e.g. { username, password, firstName, lastName, email }
    * returns -> JWT token which can be used to authenticate further requests
    */
-  static async registerUser(userData)
+  static async registerUser(userData){
+    const res = await this.request(`auth/register`, userData, "post");
+    return res.token
+  }
+
+  /**User Login
+   * params: Object of userData
+   *  e.g. { username, password }
+   * returns -> JWT token which can be used to authenticate further requests
+   */
+  static async loginUser(userData){
+    const res = await this.request(`auth/token`, userData, "post");
+    return res.token
+  }
+
+   // User Methods
+
+  /**Register a Admin
+   * params: Object of adminData
+   *  e.g. { username, password, firstName, lastName, email }
+   * returns -> {
+   *            user: { username, firstName, lastName, email, isAdmin }, 
+   *            token : ""
+   *            }
+   */
+  static async registerAdmin(adminData){
+    const res = await this.request(`users/`, adminData, "post");
+    return res
+  }
+
+  /** Get all Users
+   *
+   * Returns list of all users.
+   */
+  static async getUsers(){
+    const res = await this.request(`users/`);
+    return res.users
+  }
+
+  /** Get a User
+   * params:username
+   *
+   * Returns { username, firstName, lastName, isAdmin, jobs }
+   * where jobs is { id, title, companyHandle, companyName, state }
+   */
+  static async getUser(username){
+    const res = await this.request(`users/`, username);
+    return res.users
+  }
 }
 
 // for now, put token ("testuser" / "password" on class)
