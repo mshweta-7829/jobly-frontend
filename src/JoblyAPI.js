@@ -44,7 +44,12 @@ class JoblyApi {
   }
 
   /** Get all companies by handle.
-   * returns -> [ { handle, name, description, numEmployees, logoUrl }, ...] 
+   * 
+   * Params:
+   * - company handle
+   * 
+   * Returns array of company objects  
+   * [ { handle, name, description, numEmployees, logoUrl }, ...] 
    */
 
   static async getCompanies() {
@@ -52,9 +57,15 @@ class JoblyApi {
     return res.companies;
   }
 
-  /** Get all matched companies 
-   * {searchData: {minEmployees, maxEmployees and  nameLike}} (will find case-insensitive, partial matches)
-   * returns -> [ { handle, name, description, numEmployees, logoUrl }, ...] 
+  /** Get some companies with filtered search
+   * 
+   * Params: 
+   * - object of optional search filters
+   * {minEmployees, maxEmployees and  nameLike} (will find case-insensitive, partial matches)
+   * 
+   * Returns: 
+   * - array of company objects 
+   *    [ { handle, name, description, numEmployees, logoUrl }, ...] 
    */
 
   static async searchCompanies(searchData) {
@@ -62,10 +73,16 @@ class JoblyApi {
     return res.companies;
   }
 
-  /** Patch a company (identified by handle) 
-   * {updateData: {name, description, numEmployees, logo_url}}
+  /** Patch a company (identified by handle)
    * 
-   * returns -> { handle, name, description, numEmployees, logo_url }
+   * Params:
+   * - object of optional properties to update 
+   *    {name, description, numEmployees, logo_url}
+   * - company handle
+   * 
+   * Returns:
+   * - company object 
+   *    { handle, name, description, numEmployees, logo_url }
    */
 
   static async updateCompany(handle, updateData) {
@@ -74,7 +91,13 @@ class JoblyApi {
   }
 
   /** Delete a company 
-   * returns ->  { deleted: handle }
+   * 
+   * Params:
+   * - company handle
+   * 
+   * Returns  
+   * - deleted company handle
+   *    'handle'
    */
 
   static async deleteCompany(handle) {
@@ -86,17 +109,25 @@ class JoblyApi {
   //Job Methods
 
   /**Get all jobs 
-   * returns -> [ { id, title, salary, equity, companyHandle, companyName }, ...]
+   * 
+   * Returns 
+   * - array of job objects
+   *    [ { id, title, salary, equity, companyHandle, companyName }, ...]
   */
   static async getJobs() {
     const res = await this.request('jobs/');
     return res.jobs
   }
 
-  /** Get all matched jobs by searchData Obj
+  /** Get some jobs with filtered search
+   * 
+   * Params:
+   * - object of optional search filters
    *    {searchData: {minSalary, hasEquity and title}} 
-   * (searchData properties are optional)
-   * returns -> [ { id, title, salary, equity, companyHandle, companyName }, ...]
+   * 
+   * Returns 
+   * - array of company objects 
+   *    [ { id, title, salary, equity, companyHandle, companyName }, ...]
    */
 
   static async searchJobs(searchData) {
@@ -105,18 +136,29 @@ class JoblyApi {
   }
 
   /**Get a specific Job object based on job id
-   * returns -> { id, title, salary, equity, company }
- *    where company is { handle, name, description, numEmployees, logoUrl }
+   * 
+   * Params:
+   * - job id
+   * 
+   * Returns 
+   * - job obejct 
+   *    { id, title, salary, equity, company }
+ *          where company is { handle, name, description, numEmployees, logoUrl }
    */
   static async getJob(id) {
     const res = await this.request(`jobs/${id}`);
     return res.job
   }
 
-  /** Patch a job (identified by id) 
-   * Update parameters: {updateData: { title, salary, hasEquity }}
+  /** Patch a job
    * 
-   * returns -> { id, title, salary, equity, companyHandle }
+   * Params:
+   * - object of optional properties to update
+   *    {updateData: { title, salary, hasEquity }}
+   * 
+   * Returns 
+   * - updated job object 
+   *    { id, title, salary, equity, companyHandle }
    */
   static async updateJob(id, updateData) {
     const res = await this.request(`jobs/${id}`, updateData, 'patch');
@@ -124,7 +166,13 @@ class JoblyApi {
   }
 
   /**Delete Job
-   * returns -> job name
+   * 
+   * Params:
+   * - job id
+   * 
+   * Returns  
+   * - deleted job id
+   *    'id'
    */
   static async deleteJob(id) {
     const res = await this.request(`jobs/${id}`);
@@ -134,10 +182,14 @@ class JoblyApi {
 
   // Auth Methods
 
-  /**Register a User
-   * params: Object of userData
-   *  e.g. { username, password, firstName, lastName, email }
-   * returns -> JWT token which can be used to authenticate further requests
+  /**Register a standard User
+   * 
+   * Params: 
+   * - object of userData
+   *  { username, password, firstName, lastName, email }
+   * 
+   * Returns:  
+   * - JWT token (used to authenticate future requests)
    */
   static async registerUser(userData){
     const res = await this.request(`auth/register`, userData, "post");
@@ -145,24 +197,35 @@ class JoblyApi {
   }
 
   /**User Login
-   * params: Object of userData
-   *  e.g. { username, password }
-   * returns -> JWT token which can be used to authenticate further requests
+   * 
+   * Params: 
+   * - object of userData
+   *    { username, password }
+   * 
+   * Returns  
+   * - JWT token (used to authenticate future requests)
    */
   static async loginUser(userData){
     const res = await this.request(`auth/token`, userData, "post");
     return res.token
   }
 
+
+
    // User Methods
 
-  /**Register a Admin
-   * params: Object of adminData
-   *  e.g. { username, password, firstName, lastName, email }
-   * returns -> {
-   *            user: { username, firstName, lastName, email, isAdmin }, 
-   *            token : ""
-   *            }
+  /**Register an Admin
+   * 
+   * Params: 
+   * - object of adminData
+   *    { username, password, firstName, lastName, email }
+   * 
+   * Returns 
+   *  - object with user and token objects 
+   *    {
+   *      user: { username, firstName, lastName, email, isAdmin }, 
+   *      token : ""
+   *    }
    */
   static async registerAdmin(adminData){
     const res = await this.request(`users/`, adminData, "post");
@@ -171,7 +234,9 @@ class JoblyApi {
 
   /** Get all Users
    *
-   * Returns list of all users.
+   * Returns 
+   * - array of user objects
+   *    [ {username, firstName, lastName, email }, ... ]
    */
   static async getUsers(){
     const res = await this.request(`users/`);
@@ -179,10 +244,14 @@ class JoblyApi {
   }
 
   /** Get a User
-   * params:username
+   * 
+   * Params:
+   * - username
    *
-   * Returns { username, firstName, lastName, isAdmin, jobs }
-   * where jobs is { id, title, companyHandle, companyName, state }
+   * Returns 
+   * - user object & associated jobs
+   *    { username, firstName, lastName, isAdmin, jobs }
+   *        where jobs is { id, title, companyHandle, companyName, state }
    */
   static async getUser(username){
     const res = await this.request(`users/`, username);
