@@ -23,7 +23,7 @@ import CurrUserContext from "./common/CurrUserContext";
  * 
  * App -> NavBar -> (links)
  */
-function NavBar() {
+function NavBar({doLogout}) {
   const  currUser = useContext(CurrUserContext)
 
   function showLoggedinOrSignupNavs() {
@@ -40,7 +40,7 @@ function NavBar() {
           <NavLink to="/companies">Companies</NavLink>
           <NavLink to="/jobs">Jobs</NavLink>
           <NavLink to="/profile">Profile</NavLink>
-          <NavLink to="/">Log out {currUser.username}</NavLink>
+          <NavLink onClick={doLogout} to="/">Log out {currUser.username}</NavLink>
         </>
       )
     }

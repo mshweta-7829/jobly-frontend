@@ -1,7 +1,26 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import CurrUserContext from './common/CurrUserContext.js'
 
-function HomePage(){
+function HomePage() {
+  const currUser = useContext(CurrUserContext);
+
+  function renderWelcomeMsgOrButtons() {
+    if (currUser) {
+      return (
+        <>
+          <h1>Welcome Back, {currUser.username}</h1>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <Link className="btn btn-primary" to="/login"> Log in </Link>
+          <Link className="btn btn-primary" to="/signup"> Sign Up</Link>
+        </>
+      )
+    }
+  }
 
   return (
     <div className="HomePage">
@@ -12,8 +31,7 @@ function HomePage(){
         <p>All the jobs in one, convenient place.</p>
       </div>
       <div>
-        <Link className="btn btn-primary" to="/login"> Log in </Link>
-        <Link className="btn btn-primary" to="/signup"> Sign Up</Link>
+          {renderWelcomeMsgOrButtons()}
       </div>
     </div>
   )

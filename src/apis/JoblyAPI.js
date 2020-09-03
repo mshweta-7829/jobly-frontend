@@ -228,8 +228,8 @@ class JoblyApi {
    *        where jobs is { id, title, companyHandle, companyName, state }
    */
   static async getUser(username){
-    const res = await this.request(`users/${username}`);
-    return res.users
+    const res = await this.request(`users/${username}`, {"username" : username});
+    return res.user
   }
 
   /** Update a User

@@ -20,7 +20,8 @@ import decode from 'jwt-decode';
 */
 function App() {
   const [currUser, setCurrUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const storedToken = localStorage.getItem('token')
+  const [token, setToken] = useState(storedToken || null);
   const [userRegData, setUserRegData] = useState(null);
   const [userLoginData, setUserLoginData] = useState(null);
 
@@ -31,7 +32,7 @@ function App() {
         const token = await JoblyApi.registerUser(userRegData);
         JoblyApi.token = token;
         setToken(JoblyApi.token);
-        localStorage.setItem(JoblyApi.token);
+        localStorage.setItem("token", JoblyApi.token);
       } catch (err) {
         console.log('Error!', err);
       }
@@ -62,12 +63,10 @@ function App() {
   useEffect(function fetchUserOnTokenChange() {
     async function fetchUser() {
       try{
-        console.log('in fetchUser')
-        const payload = decode(localStorage.getItem('token'));
-        console.log('payload', payload);
+        JoblyApi.token = token;
+        const payload = decode(token);
+        console.log("payload", payload)
         const user = await JoblyApi.getUser(payload.username);
-        console.log('User in fetchUser:', user);
-        console.log('token:', JoblyApi.token);
         setCurrUser(user);
       } catch(err) {
         console.log('Error!', err)
@@ -87,6 +86,8 @@ function App() {
   }
 
   function doLogout() {
+    localStorage.removeItem('token')
+    setToken(null)
     setCurrUser(null)
   }
 
