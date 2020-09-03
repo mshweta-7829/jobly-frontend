@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { NavLink } from "react-router-dom";
 import './NavBar.css'
+import CurrUserContext from "./common/CurrUserContext";
 
 /**Renders Nav Links based on whether user is loggedin or not
  * 
@@ -22,11 +23,11 @@ import './NavBar.css'
  * 
  * App -> NavBar -> (links)
  */
-function NavBar(props) {
-  const { currUser } = props
+function NavBar() {
+  const  currUser = useContext(CurrUserContext)
 
   function showLoggedinOrSignupNavs() {
-    if (Object.keys(currUser).length === 0) {
+    if (!currUser) {
       return (
         <>
           <NavLink to="/login">Login</NavLink>

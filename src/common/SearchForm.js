@@ -32,12 +32,15 @@ function SearchForm(props) {
     <form onSubmit={handleSubmit}>
       <input type='text'
         name={props.name}
-        value={searchFilters}
+        value={formData.name}
         placeholder='Enter a search term...'
         onChange={handleChange}
       />
       <button>Search</button>
     </form>
- }
+  )
+}
 
- }
+export default SearchForm
+
+ 

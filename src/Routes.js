@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Redirect } from "react-router-dom";
 import HomePage from './HomePage.js'
-import CompanyList from './CompanyList.js'
-import CompanyDetail from './CompanyDetail.js'
-import JobList from './HomePage.js'
-import LoginForm from './LoginForm.js'
-import SignupForm from './SignupForm.js'
-import ProfileForm from './ProfileForm.js'
+import CompanyList from './companies/CompanyList.js'
+ import CompanyDetail from './companies/CompanyDetail.js'
+// import JobList from './HomePage.js'
+// import LoginForm from './LoginForm.js'
+// import SignupForm from './SignupForm.js'
+// import ProfileForm from './ProfileForm.js'
 
 /** Defines all the routes 
  *  and redirects homepage route if nothing matches 
@@ -22,31 +22,30 @@ import ProfileForm from './ProfileForm.js'
  *                    ProfileForm
  *                  }
  * */
-function Routes(props) {
-  const { currUser, addCurrUser } = props
+function Routes() {
 
   return (
     <div className="Routes">
       <Route exact path="/" >
-        <HomePage currUser={currUser} />
+        <HomePage  />
       </Route>
       <Route exact path="/companies" >
-        <CompanyList currUser={currUser} />
+        <CompanyList  />
       </Route>
       <Route exact path="/companies/:companyName" >
-        <CompanyDetail currUser={currUser} />
+        <CompanyDetail />
       </Route>
       <Route exact path="/jobs" >
-        <JobList currUser={currUser} />
+        {/* <JobList currUser={currUser} /> */}
       </Route>
       <Route exact path="/login" >
-        <LoginForm addCurrUser={addCurrUser} />
+        {/* <LoginForm addCurrUser={addCurrUser} /> */}
       </Route>
       <Route exact path="/signup" >
-        <SignupForm addCurrUser={addCurrUser} />
+        {/* <SignupForm addCurrUser={addCurrUser} /> */}
       </Route>
       <Route exact path="/profile" >
-        <ProfileForm currUser={currUser} addCurrUser={addCurrUser} />
+        {/* <ProfileForm currUser={currUser} addCurrUser={addCurrUser} /> */}
       </Route>
       <Redirect to="/" />
     </div>

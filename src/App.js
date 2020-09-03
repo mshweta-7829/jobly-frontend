@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter } from "react-router-dom";
 import Routes from './Routes'
 import NavBar from './NavBar'
+import CurrUserContext from './common/CurrUserContext.js'
 
 /** Renders NavBar and Routes
  * 
@@ -17,17 +18,23 @@ import NavBar from './NavBar'
 */
 //TODO :make sure if we need to store all user data
 function App() {
-  const [currUser, setCurrUser] = useState({})
+  const [currUser, setCurrUser] = useState(null)
 
-  function addCurrUser(userData) {
+  function doLogin(userData) {
     setCurrUser(userData)
+  }
+
+  function doLogout() {
+    setCurrUser(null)
   }
 
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar currUser={currUser} />
-        <Routes addCurrUser={addCurrUser} currUser={currUser} />
+      <CurrUserContext.Provider value = {currUser}>
+        <NavBar doLogout ={doLogout} />
+         <Routes /> 
+      </CurrUserContext.Provider>
       </BrowserRouter>
     </div>
   );

@@ -1,5 +1,6 @@
 .NavBar a{
   color: blue;
+  margin : 15px
 }
 
 .NavBar a.active{

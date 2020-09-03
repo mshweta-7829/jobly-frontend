@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import JoblyAPI from '../common/JoblyAPI';
+import CompanyCard from '../companies/CompanyCard'
+import SearchForm from '../common/SearchForm'
 
 /**Display list of company cards and searchbar (to filter displayed companies) 
  * 
