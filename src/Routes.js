@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Redirect } from "react-router-dom";
-import HomePage from './HomePage.js'
-import CompanyList from './companies/CompanyList.js'
- import CompanyDetail from './companies/CompanyDetail.js'
-// import JobList from './HomePage.js'
+import HomePage from './HomePage.js';
+import CompanyList from './companies/CompanyList.js';
+import CompanyDetail from './companies/CompanyDetail.js';
+import JobCardList from './jobs/JobCardList.js';
 // import LoginForm from './LoginForm.js'
 // import SignupForm from './SignupForm.js'
 // import ProfileForm from './ProfileForm.js'
@@ -36,7 +36,7 @@ function Routes() {
         <CompanyDetail />
       </Route>
       <Route exact path="/jobs" >
-        {/* <JobList currUser={currUser} /> */}
+        <JobCardList />
       </Route>
       <Route exact path="/login" >
         {/* <LoginForm addCurrUser={addCurrUser} /> */}

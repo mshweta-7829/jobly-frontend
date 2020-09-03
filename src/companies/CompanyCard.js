@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom'
  * CompanyList -> CompanyCard -> view (companyCard)
  */
 function CompanyCard({ company }) {
-
+  console.log('in company card. Company:', company);
   return (
     <Link className="CompanyCard" exact to={`/companies/${company.handle}`}>
       <div>
@@ -22,4 +22,4 @@ function CompanyCard({ company }) {
   )
 }
 
-export default CompanyCard
+export default CompanyCard;

@@ -18,7 +18,7 @@ import CurrUserContext from './common/CurrUserContext.js'
 */
 //TODO :make sure if we need to store all user data
 function App() {
-  const [currUser, setCurrUser] = useState(null)
+  const [currUser, setCurrUser] = useState('David')
 
   function doLogin(userData) {
     setCurrUser(userData)
