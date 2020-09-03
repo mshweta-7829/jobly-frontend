@@ -29,7 +29,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App container">
       <BrowserRouter>
       <CurrUserContext.Provider value = {currUser}>
         <NavBar doLogout ={doLogout} />

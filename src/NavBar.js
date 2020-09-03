@@ -40,7 +40,7 @@ function NavBar() {
           <NavLink to="/companies">Companies</NavLink>
           <NavLink to="/jobs">Jobs</NavLink>
           <NavLink to="/profile">Profile</NavLink>
-          <NavLink to="/jobs">Log out {currUser.username}</NavLink>
+          <NavLink to="/">Log out {currUser.username}</NavLink>
         </>
       )
     }

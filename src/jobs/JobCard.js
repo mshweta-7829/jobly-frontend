@@ -1,5 +1,5 @@
 import React from 'react';
-import JoblyAPI from '../common/JoblyAPI';
+import JoblyAPI from '../apis/JoblyAPI';
 import CurrUserContext from "../common/CurrUserContext";
 
 /**Display JobCard
@@ -14,13 +14,15 @@ import CurrUserContext from "../common/CurrUserContext";
  * JobCardList -> JobCard
  */
 function JobCard({ job }) {
-
+  console.log(job, "job")
   return (
-    <div className='JobCard'>
-      <h3>{job.title}</h3>
-      {job.companyName ? <h2>{job.companyName}</h2> : null}
-      <p>Salary: {job.salary}</p>
-      <p>Equity: {job.equity}</p>
+    <div className='JobCard card'>
+      <div className="card-body">
+        <h6 className="card-title">{job.title}</h6>
+        {job.companyName ? <h2>{job.companyName}</h2> : null}
+        <p>Salary: {job.salary}</p>
+        <p>Equity: {job.equity}</p>
+      </div>
     </div>
   )
 }

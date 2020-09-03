@@ -53,7 +53,7 @@ class JoblyApi {
    * [ { handle, name, description, numEmployees, logoUrl }, ...] 
    */
 
-  static async getOrSearchCompanies(searchData) {
+  static async getCompanies(searchData) {
     const res = await this.request(`companies/`, searchData);
     return res.companies;
   }
@@ -104,7 +104,7 @@ class JoblyApi {
    *    [ { id, title, salary, equity, companyHandle, companyName }, ...]
    */
 
-  static async getOrSearchJobs(searchData) {
+  static async getJobs(searchData) {
     const res = await this.request(`jobs/`, searchData);
     return res.jobs;
   }

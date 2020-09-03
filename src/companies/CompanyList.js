@@ -1,62 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import JoblyAPI from '../common/JoblyAPI';
+import JoblyAPI from '../apis/JoblyAPI';
 import CompanyCard from './CompanyCard'
 import SearchForm from '../common/SearchForm'
 
 /**Display list of company cards and searchbar (to filter displayed companies) 
  * 
- * Props: 
- * 
- * 
  * State:
- * -None
+ * -searchFilters
+ * -companies
+ * -isLoading
  * 
  * Routes (/companies) -> CompanyList -> CompanyCard
 */
 function CompanyList() {
-  const [searchFilters, setSearchFilters] = useState({});
-  const [companies, setCompanies] = useState([]);
-
+  const [searchFilters, setSearchFilters] = useState(null);
+  const [companies, setCompanies] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+//TODO: try catch block
   useEffect(function fetchCompaniesOnRender() {
-    console.log('in useEffect');
     async function fetchCompanies() {
-      const companies = await JoblyAPI.getOrSearchCompanies(searchFilters);
-      console.log('companies in useEffect', companies);
-      console.log('companies[0]', companies[0]);
+      const companies = await JoblyAPI.getCompanies(searchFilters);
       setCompanies(companies);
+      setIsLoading(false)
     }
     fetchCompanies();
   }, [searchFilters]);
-
 
   function addSearchFilters(formData) {
     setSearchFilters(formData)
   }
 
   function renderCompanies() {
-    console.log('in renderCompanies');
-
-    return companies.map( company => (
-      <CompanyCard company={company} key={company.handle} />
-    ))
-    // return (
-    //   <div>
-    //     {/* <CompanyCard company={companies[0]} /> */}
-    //     {companies.map(company => (
-    //     <CompanyCard company={company} key={company.handle} />))}
-    //   </div>
-    // )
+    if(companies.length > 0){
+      return companies.map(company => (
+        <CompanyCard company={company} key={company.handle} />
+      ))
+    }else{
+      return (
+        <h2>No Results Found</h2>
+      )
+    }
   }
 
+  if (isLoading) return <h1>Loading...</h1>;
 
-
-  return(
+  return (
     <div className='CompanyList'>
-      <SearchForm name='name' 
-                  addSearchFilters={addSearchFilters}
-          />
+      <SearchForm name='name'
+        addSearchFilters={addSearchFilters}
+        formInputNameAttr="name"
+        redirectRoute="/companies"
+      />
       {renderCompanies()}
-      {/* <CompanyCard company={{'handle': 1, name: 'asdf', description: 'jl;k'}}/> */}
     </div>
   )
 }

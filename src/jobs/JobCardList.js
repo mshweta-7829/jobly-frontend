@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import JobCard from './JobCard';
+import JoblyAPI from '../apis/JoblyAPI'
+import SearchForm from '../common/SearchForm';
 
 /**Renders a list of Job Cards
  * 
@@ -7,17 +9,60 @@ import JobCard from './JobCard';
  * -Jobs [{id, title, salary, equity, companyHandle}]
  * 
  * State:
- * -None
+ * -searchTerm
+ * -jobs
+ * -isLoading
  * 
  * CompanyDetail -> JobCardList -> JobCard
  */
-function JobCardList({ jobs }) {
+
+function JobCardList() {
+  const [searchTerm, setSearchTerm] = useState(null)
+  const [jobs, setJobs] = useState(null)
+  const [isLoading, setIsLoading] = useState(true);
+
+  function search(searchTerms) {
+    setSearchTerm(searchTerms);
+  }
+
+  useEffect(function fetchJobsWithSearchTerms() {
+    async function fetchJobs() {
+      try {
+        const jobsRes = await JoblyAPI.getJobs(searchTerm);
+        setJobs(jobsRes);
+        setIsLoading(false);
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fetchJobs();
+  }, [searchTerm]);
+
+  function renderJobs() {
+    if (jobs.length > 0) {
+      return (
+        <div>
+          {jobs.map(job => (
+            <JobCard key={job.id} job={job} />
+          ))}
+        </div>
+      )
+    }else{
+      return (
+        <h2>No Results Found</h2>
+      )
+    }
+  }
+  if (isLoading) return <h1>Loading...</h1>;
 
   return (
     <div className='JobCardList'>
-      {jobs.map( job => (
-        <JobCard job={job} />
-      ))}
+      <SearchForm
+        addSearchFilters={search}
+        formInputNameAttr="title"
+        redirectRoute="/jobs"
+      />
+      {renderJobs()}
     </div>
   )
 }
