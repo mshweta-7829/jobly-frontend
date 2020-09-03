@@ -4,8 +4,8 @@ import HomePage from './HomePage.js';
 import CompanyList from './companies/CompanyList.js';
 import CompanyDetail from './companies/CompanyDetail.js';
 import JobCardList from './jobs/JobCardList.js';
-// import LoginForm from './LoginForm.js'
-// import SignupForm from './SignupForm.js'
+import LoginForm from './auths/LoginForm.js'
+import SignupForm from './auths/SignupForm.js'
 // import ProfileForm from './ProfileForm.js'
 
 /** Defines all the routes 
@@ -22,7 +22,7 @@ import JobCardList from './jobs/JobCardList.js';
  *                    ProfileForm
  *                  }
  * */
-function Routes() {
+function Routes({ doSignup, doLogin }) {
 
   return (
     <div className="Routes">
@@ -39,10 +39,10 @@ function Routes() {
         <JobCardList />
       </Route>
       <Route exact path="/login" >
-        {/* <LoginForm addCurrUser={addCurrUser} /> */}
+        <LoginForm doLogin={doLogin} />
       </Route>
       <Route exact path="/signup" >
-        {/* <SignupForm addCurrUser={addCurrUser} /> */}
+        <SignupForm doSignup={doSignup}/>
       </Route>
       <Route exact path="/profile" >
         {/* <ProfileForm currUser={currUser} addCurrUser={addCurrUser} /> */}

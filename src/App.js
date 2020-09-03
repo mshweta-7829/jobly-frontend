@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter } from "react-router-dom";
 import Routes from './Routes'
 import NavBar from './NavBar'
 import CurrUserContext from './common/CurrUserContext.js'
+import JoblyApi from './apis/JoblyAPI';
+import decode from 'jwt-decode';
 
 /** Renders NavBar and Routes
  * 
@@ -16,12 +18,72 @@ import CurrUserContext from './common/CurrUserContext.js'
  *                      email : "test@g.com"
  *                      }
 */
-//TODO :make sure if we need to store all user data
 function App() {
-  const [currUser, setCurrUser] = useState('David')
+  const [currUser, setCurrUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const [userRegData, setUserRegData] = useState(null);
+  const [userLoginData, setUserLoginData] = useState(null);
 
-  function doLogin(userData) {
-    setCurrUser(userData)
+  // Get token on registration
+  useEffect(function fetchTokenOnRegister() {
+    async function fetchToken() {
+      try{
+        const token = await JoblyApi.registerUser(userRegData);
+        JoblyApi.token = token;
+        setToken(JoblyApi.token);
+        localStorage.setItem(JoblyApi.token);
+      } catch (err) {
+        console.log('Error!', err);
+      }
+    }
+    if (userRegData ){
+      fetchToken();
+    }
+  }, [userRegData]);
+
+  // Get token on Login
+  useEffect(function fetchTokenOnLogin() {
+    async function fetchToken() {
+      try{
+        const token = await JoblyApi.loginUser(userLoginData);
+        JoblyApi.token = token;
+        setToken(JoblyApi.token);
+        localStorage.setItem("token", JoblyApi.token);
+      } catch (err) {
+        console.log('Error!', err);
+      }
+    }
+    if (userLoginData ){
+      fetchToken();
+    }
+  }, [userLoginData]);
+
+  // Set currUser upon login/registration
+  useEffect(function fetchUserOnTokenChange() {
+    async function fetchUser() {
+      try{
+        console.log('in fetchUser')
+        const payload = decode(localStorage.getItem('token'));
+        console.log('payload', payload);
+        const user = await JoblyApi.getUser(payload.username);
+        console.log('User in fetchUser:', user);
+        console.log('token:', JoblyApi.token);
+        setCurrUser(user);
+      } catch(err) {
+        console.log('Error!', err)
+      }
+    }
+    if(token){
+      fetchUser();
+    }
+  }, [token]);
+
+  function doSignup(formData){
+    setUserRegData(formData);
+  }
+
+  function doLogin(formData) {
+    setUserLoginData(formData)
   }
 
   function doLogout() {
@@ -33,7 +95,7 @@ function App() {
       <BrowserRouter>
       <CurrUserContext.Provider value = {currUser}>
         <NavBar doLogout ={doLogout} />
-         <Routes /> 
+        <Routes doSignup={doSignup} doLogin={doLogin}/> 
       </CurrUserContext.Provider>
       </BrowserRouter>
     </div>

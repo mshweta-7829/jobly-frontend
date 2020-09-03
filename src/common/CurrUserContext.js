@@ -1,4 +1,4 @@
-import React, {createContext} from 'react'
+import {createContext} from 'react'
 
 //TODO :Ask why const CurrUserContext starts with uppercase
 const CurrUserContext = createContext();
