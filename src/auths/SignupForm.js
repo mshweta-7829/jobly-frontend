@@ -25,9 +25,9 @@ function SignupForm({ initialFormData, doSignup }) {
     }));
   }
 
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    doSignup(formData);
+    await doSignup(formData);
     setFormData(initialFormData);
 
     history.push('/companies');

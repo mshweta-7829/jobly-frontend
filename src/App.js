@@ -22,88 +22,49 @@ function App() {
   const [currUser, setCurrUser] = useState(null);
   const storedToken = localStorage.getItem('token')
   const [token, setToken] = useState(storedToken || null);
-  const [userRegData, setUserRegData] = useState(null);
-  const [userLoginData, setUserLoginData] = useState(null);
-  const [userUpdateProfileData, setUserUpdateProfileData] = useState(null);
 
-  // Get token on registration
-  useEffect(function fetchTokenOnRegister() {
-    async function fetchToken() {
-      try{
-        const token = await JoblyApi.registerUser(userRegData);
-        JoblyApi.token = token;
-        setToken(JoblyApi.token);
-        localStorage.setItem("token", JoblyApi.token);
-      } catch (err) {
-        console.log('Error!', err);
-      }
-    }
-    if (userRegData ){
-      fetchToken();
-    }
-  }, [userRegData]);
-
-  // Get token on Login
-  useEffect(function fetchTokenOnLogin() {
-    async function fetchToken() {
-      try{
-        const token = await JoblyApi.loginUser(userLoginData);
-        JoblyApi.token = token;
-        setToken(JoblyApi.token);
-        localStorage.setItem("token", JoblyApi.token);
-      } catch (err) {
-        console.log('Error!', err);
-      }
-    }
-    if (userLoginData ){
-      fetchToken();
-    }
-  }, [userLoginData]);
-
-  // Set currUser upon login/registration
+  // runs after first re-render and when token changes
   useEffect(function fetchUserOnTokenChange() {
     async function fetchUser() {
-      try{
+      try {
         const payload = decode(token);
         console.log("payload", payload)
         const user = await JoblyApi.getUser(payload.username);
         setCurrUser(user);
-      } catch(err) {
+      } catch (err) {
         console.log('Error!', err)
       }
     }
-    if(token){
+    if (token) {
       fetchUser();
     }
   }, [token]);
 
-
-  // Update currUser upon Profile update
-  useEffect(function fetchUserOnProfileChange() {
-    async function fetchUser() {
-      try{
-        // debugger
-        const user = await JoblyApi.updateUser(currUser.username, userUpdateProfileData)
-        setCurrUser(user);
-      } catch(err) {
-        console.log('Error!:', err);
-      }
+  async function doSignup(formData) {
+    try {
+      const token = await JoblyApi.registerUser(formData);
+      JoblyApi.token = token;
+      setToken(JoblyApi.token);
+      localStorage.setItem("token", JoblyApi.token);
+    } catch (err) {
+      console.log('Error!', err);
     }
-    if(userUpdateProfileData !== null) {
-      fetchUser();
-    }
-  }, [userUpdateProfileData]);
-
-  function doSignup(formData){
-    setUserRegData(formData);
   }
 
-  function doLogin(formData) {
-    setUserLoginData(formData)
+  async function doLogin(formData) {
+    try {
+      const token = await JoblyApi.loginUser(formData);
+      JoblyApi.token = token;
+      setToken(JoblyApi.token);
+      localStorage.setItem("token", JoblyApi.token);
+    } catch (err) {
+      console.log('Error!', err);
+    }
   }
 
-  function doUpdateProfile(formData) {
-    setUserUpdateProfileData(formData);
+  async function doUpdateProfile(formData) {
+    const user = await JoblyApi.updateUser(currUser.username, formData)
+    setCurrUser(user);
   }
 
   function doLogout() {
@@ -112,17 +73,19 @@ function App() {
     setCurrUser(null)
   }
 
+  if (token && !currUser) return <h2>Waiting</h2>
+
   return (
     <div className="App container">
       <BrowserRouter>
-      <CurrUserContext.Provider value = {currUser}>
-        <NavBar doLogout ={doLogout} />
-        <Routes 
-          doSignup={doSignup} 
-          doLogin={doLogin}
-          doUpdateProfile={doUpdateProfile}
-        /> 
-      </CurrUserContext.Provider>
+        <CurrUserContext.Provider value={currUser}>
+          <NavBar doLogout={doLogout} />
+          <Routes
+            doSignup={doSignup}
+            doLogin={doLogin}
+            doUpdateProfile={doUpdateProfile}
+          />
+        </CurrUserContext.Provider>
       </BrowserRouter>
     </div>
   );

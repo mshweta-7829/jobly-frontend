@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import CurrUserContext from '../common/CurrUserContext.js'
 
 
@@ -17,20 +16,17 @@ import CurrUserContext from '../common/CurrUserContext.js'
  */
 function ProfileForm({ doUpdateProfile }) {
   const currUser = useContext(CurrUserContext);
-  let initialFormData = {};
-  
-  function updateInitialFormData() {
-    initialFormData = {
-      firstName: currUser.firstName,
-      lastName: currUser.lastName,
-      email: currUser.email,
-      password: ''
-    }
-  }
-  updateInitialFormData();
-  const [formData, setFormData] = useState(initialFormData);
 
-  console.log('formData', formData);
+  let initialFormData = {
+    firstName: currUser.firstName,
+    lastName: currUser.lastName,
+    email: currUser.email,
+    password: ''
+  }
+
+  console.log("initial data", initialFormData)
+  const [formData, setFormData] = useState(initialFormData);//Runs only once
+
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -39,11 +35,11 @@ function ProfileForm({ doUpdateProfile }) {
     }));
   }
 
-  function handleSubmit(evt) {
+  console.log('formData', formData);
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    doUpdateProfile(formData);
-    updateInitialFormData();
-    setFormData(initialFormData);
+    await doUpdateProfile(formData); //re-renders app.js, needs some time 
+    setFormData({...formData, 'password' : ''});
   }
 
 
@@ -103,7 +99,7 @@ function ProfileForm({ doUpdateProfile }) {
           />
         </div>
 
-        <button>Submit</button>
+        <button>Save changes</button>
       </form>
 
     )
@@ -114,7 +110,5 @@ function ProfileForm({ doUpdateProfile }) {
     </div>
   )
 }
-
-
 
 export default ProfileForm;

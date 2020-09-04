@@ -13,9 +13,9 @@ function LoginForm(props) {
     }))
   }
 
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault()
-    doLogin(formData)
+    await doLogin(formData)
     setFormData(initialFromData)
     history.push('/companies');
   }

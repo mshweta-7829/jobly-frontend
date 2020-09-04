@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import HomePage from './HomePage.js';
 import CompanyList from './companies/CompanyList.js';
 import CompanyDetail from './companies/CompanyDetail.js';
@@ -26,6 +26,7 @@ function Routes({ doSignup, doLogin, doUpdateProfile }) {
 
   return (
     <div className="Routes">
+      <Switch>
       <Route exact path="/" >
         <HomePage  />
       </Route>
@@ -48,6 +49,7 @@ function Routes({ doSignup, doLogin, doUpdateProfile }) {
         <ProfileForm doUpdateProfile={doUpdateProfile} />
       </Route>
       <Redirect to="/" />
+      </Switch>
     </div>
   )
 }
