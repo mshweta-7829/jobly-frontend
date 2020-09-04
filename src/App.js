@@ -24,6 +24,7 @@ function App() {
   const [token, setToken] = useState(storedToken || null);
   const [userRegData, setUserRegData] = useState(null);
   const [userLoginData, setUserLoginData] = useState(null);
+  const [userUpdateProfileData, setUserUpdateProfileData] = useState(null);
 
   // Get token on registration
   useEffect(function fetchTokenOnRegister() {
@@ -63,7 +64,6 @@ function App() {
   useEffect(function fetchUserOnTokenChange() {
     async function fetchUser() {
       try{
-        JoblyApi.token = token;
         const payload = decode(token);
         console.log("payload", payload)
         const user = await JoblyApi.getUser(payload.username);
@@ -77,12 +77,33 @@ function App() {
     }
   }, [token]);
 
+
+  // Update currUser upon Profile update
+  useEffect(function fetchUserOnProfileChange() {
+    async function fetchUser() {
+      try{
+        // debugger
+        const user = await JoblyApi.updateUser(currUser.username, userUpdateProfileData)
+        setCurrUser(user);
+      } catch(err) {
+        console.log('Error!:', err);
+      }
+    }
+    if(userUpdateProfileData !== null) {
+      fetchUser();
+    }
+  }, [userUpdateProfileData]);
+
   function doSignup(formData){
     setUserRegData(formData);
   }
 
   function doLogin(formData) {
     setUserLoginData(formData)
+  }
+
+  function doUpdateProfile(formData) {
+    setUserUpdateProfileData(formData);
   }
 
   function doLogout() {
@@ -96,7 +117,11 @@ function App() {
       <BrowserRouter>
       <CurrUserContext.Provider value = {currUser}>
         <NavBar doLogout ={doLogout} />
-        <Routes doSignup={doSignup} doLogin={doLogin}/> 
+        <Routes 
+          doSignup={doSignup} 
+          doLogin={doLogin}
+          doUpdateProfile={doUpdateProfile}
+        /> 
       </CurrUserContext.Provider>
       </BrowserRouter>
     </div>

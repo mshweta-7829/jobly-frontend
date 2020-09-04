@@ -6,7 +6,7 @@ import CompanyDetail from './companies/CompanyDetail.js';
 import JobCardList from './jobs/JobCardList.js';
 import LoginForm from './auths/LoginForm.js'
 import SignupForm from './auths/SignupForm.js'
-// import ProfileForm from './ProfileForm.js'
+import ProfileForm from './auths/ProfileForm.js'
 
 /** Defines all the routes 
  *  and redirects homepage route if nothing matches 
@@ -22,7 +22,7 @@ import SignupForm from './auths/SignupForm.js'
  *                    ProfileForm
  *                  }
  * */
-function Routes({ doSignup, doLogin }) {
+function Routes({ doSignup, doLogin, doUpdateProfile }) {
 
   return (
     <div className="Routes">
@@ -45,7 +45,7 @@ function Routes({ doSignup, doLogin }) {
         <SignupForm doSignup={doSignup}/>
       </Route>
       <Route exact path="/profile" >
-        {/* <ProfileForm currUser={currUser} addCurrUser={addCurrUser} /> */}
+        <ProfileForm doUpdateProfile={doUpdateProfile} />
       </Route>
       <Redirect to="/" />
     </div>
