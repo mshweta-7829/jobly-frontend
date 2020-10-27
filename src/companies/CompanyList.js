@@ -19,9 +19,13 @@ function CompanyList() {
 //TODO: try catch block
   useEffect(function fetchCompaniesOnRender() {
     async function fetchCompanies() {
-      const companies = await JoblyAPI.getCompanies(searchFilters);
-      setCompanies(companies);
-      setIsLoading(false)
+      try {
+        const companies = await JoblyAPI.getCompanies(searchFilters);
+        setCompanies(companies);
+        setIsLoading(false)
+      } catch(err) {
+        console.log(err);
+      }
     }
     fetchCompanies();
   }, [searchFilters]);

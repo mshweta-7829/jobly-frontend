@@ -2,11 +2,11 @@ import React, { useState, useContext } from 'react';
 import CurrUserContext from '../common/CurrUserContext.js'
 
 
-/**Display Signup Form
+/**Display signup Form
  * 
  * Props:
  * -initial form data
- * - doSignup (provides formData to parent to register user)
+ * - signup (provides formData to parent to register user)
  * -TODO: setCurrUser Context?
  * 
  * State:
@@ -14,7 +14,7 @@ import CurrUserContext from '../common/CurrUserContext.js'
  * 
  * App -> Route (/signup) -> SignupForm
  */
-function ProfileForm({ doUpdateProfile }) {
+function ProfileForm({ updateProfile }) {
   const currUser = useContext(CurrUserContext);
 
   let initialFormData = {
@@ -38,7 +38,7 @@ function ProfileForm({ doUpdateProfile }) {
   console.log('formData', formData);
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await doUpdateProfile(formData); //re-renders app.js, needs some time 
+    await updateProfile(formData); //re-renders app.js, needs some time 
     setFormData({...formData, 'password' : ''});
   }
 

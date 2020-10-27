@@ -22,7 +22,7 @@ import ProfileForm from './auths/ProfileForm.js'
  *                    ProfileForm
  *                  }
  * */
-function Routes({ doSignup, doLogin, doUpdateProfile }) {
+function Routes({ signup, login, updateProfile }) {
 
   return (
     <div className="Routes">
@@ -40,13 +40,13 @@ function Routes({ doSignup, doLogin, doUpdateProfile }) {
         <JobCardList />
       </Route>
       <Route exact path="/login" >
-        <LoginForm doLogin={doLogin} />
+        <LoginForm login={login} />
       </Route>
       <Route exact path="/signup" >
-        <SignupForm doSignup={doSignup}/>
+        <SignupForm signup={signup}/>
       </Route>
       <Route exact path="/profile" >
-        <ProfileForm doUpdateProfile={doUpdateProfile} />
+        <ProfileForm updateProfile={updateProfile} />
       </Route>
       <Redirect to="/" />
       </Switch>

@@ -170,7 +170,7 @@ class JoblyApi {
     return res.token
   }
 
-  /**User Login
+  /**User login
    * 
    * Params: 
    * - object of userData

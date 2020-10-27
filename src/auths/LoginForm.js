@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 function LoginForm(props) {
-  const { initialFromData, doLogin } = props
+  const { initialFromData, login } = props
   const [formData, setFormData] = useState(initialFromData)
   const history = useHistory();
 
@@ -15,7 +15,7 @@ function LoginForm(props) {
 
   async function handleSubmit(evt) {
     evt.preventDefault()
-    await doLogin(formData)
+    await login(formData)
     setFormData(initialFromData)
     history.push('/companies');
   }
@@ -24,7 +24,7 @@ function LoginForm(props) {
 
       <div className="form-group">
         <input
-          id="Login-username"
+          id="login-username"
           name="username"
           className="form-control"
           placeholder="Username"
@@ -36,7 +36,7 @@ function LoginForm(props) {
 
       <div className="form-group">
         <input
-          id="Login-password"
+          id="login-password"
           name="password"
           className="form-control"
           placeholder="Password"

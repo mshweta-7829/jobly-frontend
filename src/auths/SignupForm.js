@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 
-/**Display Signup Form
+/**Display signup Form
  * 
  * Props:
  * -initial form data
- * - doSignup (provides formData to parent to register user)
+ * - signup (provides formData to parent to register user)
  * -TODO: setCurrUser Context?
  * 
  * State:
@@ -14,7 +14,7 @@ import { useHistory } from 'react-router-dom';
  * 
  * App -> Route (/signup) -> SignupForm
  */
-function SignupForm({ initialFormData, doSignup }) {
+function SignupForm({ initialFormData, signup }) {
   const [formData, setFormData] = useState(initialFormData);
   const history = useHistory();
 
@@ -27,7 +27,7 @@ function SignupForm({ initialFormData, doSignup }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await doSignup(formData);
+    await signup(formData);
     setFormData(initialFormData);
 
     history.push('/companies');
@@ -39,7 +39,7 @@ function SignupForm({ initialFormData, doSignup }) {
       Object.keys(initialFormData).map(input => (
         <div className="form-group">
           <input
-            id={`Signup-${input}`}
+            id={`signup-${input}`}
             name={input}
             className="form-control"
             placeholder={input}
