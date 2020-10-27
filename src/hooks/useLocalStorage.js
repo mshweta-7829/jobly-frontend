@@ -23,9 +23,9 @@ function useLocalStorage(key, firstValue = null) {
   const [item, setItem] = useState(initialValue);
 
   useEffect(function setKeyInLocalStorage() {
-    console.log('in useLocalStorage effect hook');
-    console.log('in useLocalStorage effect hook. Key:', key);
-    console.log('in useLocalStorage effect hook. Item:', item);
+    // console.log('in useLocalStorage effect hook');
+    // console.log('in useLocalStorage effect hook. Key:', key);
+    // console.log('in useLocalStorage effect hook. Item:', item);
 
 
     if (item === null) {
@@ -35,8 +35,8 @@ function useLocalStorage(key, firstValue = null) {
     }
   }, [key, item]);
 
-  console.log('after useLocalStorage effect. Key:', key);
-  console.log('after useLocalStorage effect. Item:', item);
+  // console.log('after useLocalStorage effect. Key:', key);
+  // console.log('after useLocalStorage effect. Item:', item);
 
 
   return [item, setItem];

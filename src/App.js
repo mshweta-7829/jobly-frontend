@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import { BrowserRouter } from "react-router-dom";
-import Routes from './Routes'
-import NavBar from './NavBar'
-import CurrUserContext from './common/CurrUserContext.js'
-import JoblyApi from './apis/JoblyAPI';
 import decode from 'jwt-decode';
+import Routes from './Routes';
+import NavBar from './NavBar';
+import CurrUserContext from './common/CurrUserContext';
+import JoblyApi from './apis/JoblyAPI';
+import useLocalStorage from './hooks/useLocalStorage';
+import './App.css';
 
 // Key name for storing token in localStorage in case page refreshes
 export const TOKEN_STORAGE_ID = "jobly-token";
@@ -31,61 +32,82 @@ export const TOKEN_STORAGE_ID = "jobly-token";
 */
 function App() {
   const [currUser, setCurrUser] = useState(null);
-  const [token, setToken] = useState(storedToken || null);
+  const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [infoLoaded, setInfoLoaded] = useState(false);
-  const storedToken = localStorage.getItem('token')
+  // const [token, setToken] = useState(storedToken || null);
+  // const storedToken = localStorage.getItem('token')
 
 
   // runs after first render and when token changes
   useEffect(function fetchUserOnTokenChange() {
     async function fetchUser() {
-      try {
-        const payload = decode(token);
-        const user = await JoblyApi.getUser(payload.username);
-        setCurrUser(user);
-      } catch (err) {
-        console.log('Error!', err)
+      if (token) {
+        try {
+          const payload = decode(token);
+          JoblyApi.token = token;
+          const user = await JoblyApi.getUser(payload.username);
+          setCurrUser(user);
+        } catch (err) {
+          console.error('Error loading the user!', err)
+          setCurrUser(null);
+        }
       }
+      // loading spinner will not render
+      setInfoLoaded(true);
     }
-    if (token) {
-      fetchUser();
-    }
+
+    // sets infoLoaded to false - this renders the loading spinner as fetchUser runs
+    // once fetchUser finishes running, the loading spinner will not be present after
+    // the rerender triggered by fetchUser
+    setInfoLoaded(false);
+    fetchUser();
   }, [token]);
 
-  async function signup(formData) {
+  /** Signs user up
+   * 
+   * Upon signup, the user's token is saved both to the JoblyAPI class and 
+   * local storage (see the useEffect above). Therefore, the user is treated as being
+   * logged in on sign up is successful 
+   */
+  async function signup(signupData) {
     try {
-      const token = await JoblyApi.registerUser(formData);
-      JoblyApi.token = token;
-      setToken(JoblyApi.token);
-      localStorage.setItem(TOKEN_STORAGE_ID, JoblyApi.token);
+      const token = await JoblyApi.registerUser(signupData);
+      setToken(token);
+      return { success: true };
     } catch (err) {
-      console.log('Error!', err);
+      console.error('Signup Unsuccessful!', err);
+      return { success: false, err};
     }
   }
 
-  async function login(formData) {
+  /**Logs user in
+   * 
+   * Upon login, user's token is saved both to the JoblyAPI class
+   * and local storage
+   */
+  async function login(loginData) {
     try {
-      const token = await JoblyApi.loginUser(formData);
-      JoblyApi.token = token;
-      setToken(JoblyApi.token);
-      localStorage.setItem("token", JoblyApi.token);
+      const token = await JoblyApi.loginUser(loginData);
+      setToken(token);
+      return { success: true };
     } catch (err) {
-      console.log('Error!', err);
+      console.error('Login Unsuccessful!', err);
+      return { success: false, err};
     }
   }
 
-  async function updateProfile(formData) {
-    const user = await JoblyApi.updateUser(currUser.username, formData)
+  /**Updates a user's profile */
+  async function updateProfile(updateData) {
+    const user = await JoblyApi.updateUser(currUser.username, updateData)
     setCurrUser(user);
   }
 
   function logout() {
-    localStorage.removeItem('token')
-    setToken(null)
-    setCurrUser(null)
+    setToken(null);
+    setCurrUser(null);
   }
 
-  if (token && !currUser) return <h2>Waiting</h2>
+  if (!infoLoaded) return <h2>Waiting</h2>
 
   return (
     <div className="App container">
