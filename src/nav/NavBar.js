@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { NavLink } from "react-router-dom";
 import './NavBar.css'
-import CurrentUserContext from "./common/CurrentUserContext";
+import CurrentUserContext from "../auths/CurrentUserContext";
 
 /**Renders Nav Links based on whether user is loggedin or not
  * 

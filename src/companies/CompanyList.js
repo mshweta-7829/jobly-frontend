@@ -16,7 +16,7 @@ function CompanyList() {
   const [searchFilters, setSearchFilters] = useState(null);
   const [companies, setCompanies] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-//TODO: try catch block
+  
   useEffect(function fetchCompaniesOnRender() {
     async function fetchCompanies() {
       try {

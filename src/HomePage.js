@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import CurrentUserContext from './common/CurrentUserContext.js'
+import CurrentUserContext from './auths/CurrentUserContext.js'
 
 function HomePage() {
-  const currentUser = useContext(CurrentUserContext);
-
+  const { currentUser } = useContext(CurrentUserContext);
+  console.log('in HomePage. CurrentUser:', currentUser);
   function renderWelcomeMsgOrButtons() {
     if (currentUser) {
       return (

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from "react-router-dom";
 import decode from 'jwt-decode';
-import Routes from './Routes';
-import NavBar from './NavBar';
-import CurrentUserContext from './common/CurrentUserContext';
+import Routes from './routes/Routes';
+import NavBar from './nav/NavBar';
+import CurrentUserContext from './auths/CurrentUserContext';
 import JoblyApi from './apis/JoblyAPI';
 import useLocalStorage from './hooks/useLocalStorage';
 import './App.css';
