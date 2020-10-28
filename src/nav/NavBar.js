@@ -23,8 +23,9 @@ import CurrentUserContext from "../auths/CurrentUserContext";
  * 
  * App -> NavBar -> (links)
  */
-function NavBar({logout}) {
-  const  currentUser = useContext(CurrentUserContext)
+function NavBar({ logout }) {
+  const { currentUser } = useContext(CurrentUserContext)
+  console.log('in NavBar. CurrentUser:', currentUser);
 
   function showLoggedinOrSignupNavs() {
     if (!currentUser) {
