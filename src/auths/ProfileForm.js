@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import CurrUserContext from '../common/CurrUserContext.js'
+import CurrentUserContext from '../common/CurrentUserContext.js'
 
 
 /**Display signup Form
@@ -7,7 +7,7 @@ import CurrUserContext from '../common/CurrUserContext.js'
  * Props:
  * -initial form data
  * - signup (provides formData to parent to register user)
- * -TODO: setCurrUser Context?
+ * -TODO: setCurrentUser Context?
  * 
  * State:
  * - formData
@@ -15,12 +15,12 @@ import CurrUserContext from '../common/CurrUserContext.js'
  * App -> Route (/signup) -> SignupForm
  */
 function ProfileForm({ updateProfile }) {
-  const currUser = useContext(CurrUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   let initialFormData = {
-    firstName: currUser.firstName,
-    lastName: currUser.lastName,
-    email: currUser.email,
+    firstName: currentUser.firstName,
+    lastName: currentUser.lastName,
+    email: currentUser.email,
     password: ''
   }
 
@@ -48,7 +48,7 @@ function ProfileForm({ updateProfile }) {
       <form onSubmit={handleSubmit} className='SignupForm'>
         <div className='form-group'>
           <label>Username</label>
-          <p>{currUser.username}</p>
+          <p>{currentUser.username}</p>
         </div>
 
         <div className="form-group">

@@ -1,15 +1,15 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import CurrUserContext from './common/CurrUserContext.js'
+import CurrentUserContext from './common/CurrentUserContext.js'
 
 function HomePage() {
-  const currUser = useContext(CurrUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   function renderWelcomeMsgOrButtons() {
-    if (currUser) {
+    if (currentUser) {
       return (
         <>
-          <h1>Welcome Back, {currUser.username}</h1>
+          <h1>Welcome Back, {currentUser.username}</h1>
         </>
       )
     } else {

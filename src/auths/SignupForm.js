@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
  * Props:
  * -initial form data
  * - signup (provides formData to parent to register user)
- * -TODO: setCurrUser Context?
+ * -TODO: setCurrentUser Context?
  * 
  * State:
  * - formData

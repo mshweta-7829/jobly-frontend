@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import decode from 'jwt-decode';
 import Routes from './Routes';
 import NavBar from './NavBar';
-import CurrUserContext from './common/CurrUserContext';
+import CurrentUserContext from './common/CurrentUserContext';
 import JoblyApi from './apis/JoblyAPI';
 import useLocalStorage from './hooks/useLocalStorage';
 import './App.css';
@@ -14,8 +14,8 @@ export const TOKEN_STORAGE_ID = "jobly-token";
 /** Jobly App
  * 
  * State :
- *  - currUser: 
- *      User obj from API. Once retrieved, it is stored in context. 
+ *  - currentUser: 
+ *      User obj from API. Once retrieved, it is stored in context (CurrentUserContext). 
  *      Read by other components to see if user is logged in
  *        { username, firstName, lastName, isAdmin, jobs }
  *          where jobs is { id, title, companyHandle, companyName, state }
@@ -31,7 +31,7 @@ export const TOKEN_STORAGE_ID = "jobly-token";
  * App -> { NavBar, Routes }
 */
 function App() {
-  const [currUser, setCurrUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [infoLoaded, setInfoLoaded] = useState(false);
   // const [token, setToken] = useState(storedToken || null);
@@ -46,10 +46,10 @@ function App() {
           const payload = decode(token);
           JoblyApi.token = token;
           const user = await JoblyApi.getUser(payload.username);
-          setCurrUser(user);
+          setCurrentUser(user);
         } catch (err) {
           console.error('Error loading the user!', err)
-          setCurrUser(null);
+          setCurrentUser(null);
         }
       }
       // loading spinner will not render
@@ -98,30 +98,28 @@ function App() {
 
   /**Updates a user's profile */
   async function updateProfile(updateData) {
-    const user = await JoblyApi.updateUser(currUser.username, updateData)
-    setCurrUser(user);
+    const user = await JoblyApi.updateUser(currentUser.username, updateData)
+    setCurrentUser(user);
   }
 
   function logout() {
     setToken(null);
-    setCurrUser(null);
+    setCurrentUser(null);
   }
 
   if (!infoLoaded) return <h2>Waiting</h2>
 
   return (
-    <div className="App container">
       <BrowserRouter>
-        <CurrUserContext.Provider value={currUser}>
+        <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
           <NavBar logout={logout} />
           <Routes
             signup={signup}
             login={login}
             updateProfile={updateProfile}
           />
-        </CurrUserContext.Provider>
+        </CurrentUserContext.Provider>
       </BrowserRouter>
-    </div>
   );
 }
 

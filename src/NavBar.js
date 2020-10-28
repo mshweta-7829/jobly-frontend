@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import { NavLink } from "react-router-dom";
 import './NavBar.css'
-import CurrUserContext from "./common/CurrUserContext";
+import CurrentUserContext from "./common/CurrentUserContext";
 
 /**Renders Nav Links based on whether user is loggedin or not
  * 
  * Accepts props:
- * - currUser -> details about currUser
+ * - currentUser -> details about currentUser
  * 
  * If user is loggedIn, renders link to:
  *    -Companies
@@ -24,10 +24,10 @@ import CurrUserContext from "./common/CurrUserContext";
  * App -> NavBar -> (links)
  */
 function NavBar({logout}) {
-  const  currUser = useContext(CurrUserContext)
+  const  currentUser = useContext(CurrentUserContext)
 
   function showLoggedinOrSignupNavs() {
-    if (!currUser) {
+    if (!currentUser) {
       return (
         <>
           <NavLink to="/login">login</NavLink>
@@ -40,7 +40,7 @@ function NavBar({logout}) {
           <NavLink to="/companies">Companies</NavLink>
           <NavLink to="/jobs">Jobs</NavLink>
           <NavLink to="/profile">Profile</NavLink>
-          <NavLink onClick={logout} to="/">Log out {currUser.username}</NavLink>
+          <NavLink onClick={logout} to="/">Log out {currentUser.username}</NavLink>
         </>
       )
     }

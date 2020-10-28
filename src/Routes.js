@@ -12,8 +12,8 @@ import ProfileForm from './auths/ProfileForm.js'
  *  and redirects homepage route if nothing matches 
  * 
  * Accepts props :
- *   - currUser -> details about currUser
- *   - addCurrUser function to add currUser if not set.
+ *   - currentUser -> details about currentUser
+ *   - addCurrUser function to add currentUser if not set.
  * 
  * App -> Routes -> {
  *                    HomePage, CompanyList, 
