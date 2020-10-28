@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import CurrentUserContext from '../common/CurrentUserContext.js'
+import CurrentUserContext from './CurrentUserContext.js'
 
 
 /**Display signup Form

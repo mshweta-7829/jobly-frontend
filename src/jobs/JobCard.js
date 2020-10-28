@@ -1,6 +1,4 @@
 import React from 'react';
-import JoblyAPI from '../apis/JoblyAPI';
-import CurrentUserContext from "../common/CurrentUserContext";
 
 /**Display JobCard
  * Details the 
