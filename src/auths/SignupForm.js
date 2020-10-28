@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import AlertMessages from '../common/AlertMessages';
 
 
 /**Display signup Form
@@ -15,6 +16,10 @@ import { useHistory } from 'react-router-dom';
  * App -> Route (/signup) -> SignupForm
  */
 function SignupForm({ initialFormData, signup }) {
+  console.log('******SignupForm intitialFormData:', initialFormData)
+  console.log('******SignupForm signup:', signup);
+
+  const [formErrors, setFormErrors] = useState([]);
   const [formData, setFormData] = useState(initialFormData);
   const history = useHistory();
 
@@ -27,10 +32,20 @@ function SignupForm({ initialFormData, signup }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await signup(formData);
-    setFormData(initialFormData);
+    const result = await signup(formData);
 
-    history.push('/companies');
+    if (result.success) {
+      history.push('/companies')
+    } else {
+      setFormErrors(result.errors);
+    }
+
+    // try {
+    //   await signup(formData);
+    //   history.push('/companies');
+    // } catch(err) {
+    //   setFormErrors(err);
+    // setFormData(initialFormData);
   }
 
 
@@ -53,10 +68,16 @@ function SignupForm({ initialFormData, signup }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className='SignupForm'>
-      {renderFormInputs()}
-      <button>Submit</button>
-    </form>
+    <div>
+      {formErrors.length
+        ? <AlertMessages type='danger' messages={formErrors} />
+        : null}
+        
+      <form onSubmit={handleSubmit} className='SignupForm'>
+        {renderFormInputs()}
+        <button>Submit</button>
+      </form>
+    </div>
   )
 }
 

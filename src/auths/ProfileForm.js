@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import CurrentUserContext from './CurrentUserContext.js'
+import CurrentUserContext from './CurrentUserContext';
+import AlertMessages from '../common/AlertMessages';
 
 
 /**Display signup Form
@@ -15,6 +16,7 @@ import CurrentUserContext from './CurrentUserContext.js'
  * App -> Route (/signup) -> SignupForm
  */
 function ProfileForm({ updateProfile }) {
+  const [formErrors, setFormErrors] = useState([]);
   const currentUser = useContext(CurrentUserContext);
 
   let initialFormData = {
@@ -24,7 +26,7 @@ function ProfileForm({ updateProfile }) {
     password: ''
   }
 
-  console.log("initial data", initialFormData)
+  // console.log("initial data", initialFormData)
   const [formData, setFormData] = useState(initialFormData);//Runs only once
 
 
@@ -35,16 +37,20 @@ function ProfileForm({ updateProfile }) {
     }));
   }
 
-  console.log('formData', formData);
+  // console.log('formData', formData);
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await updateProfile(formData); //re-renders app.js, needs some time 
-    setFormData({...formData, 'password' : ''});
+    try {
+      await updateProfile(formData); //re-renders app.js, needs some time 
+    } catch (err) {
+      setFormErrors(err);
+    }
+    setFormData({ ...formData, 'password': '' });
   }
 
 
-  function renderFormInputs() {
-    return (
+  return (
+    <div>
       <form onSubmit={handleSubmit} className='SignupForm'>
         <div className='form-group'>
           <label>Username</label>
@@ -102,11 +108,9 @@ function ProfileForm({ updateProfile }) {
         <button>Save changes</button>
       </form>
 
-    )
-  }
-  return (
-    <div>
-      {renderFormInputs()}
+      {formErrors.length
+        ? <AlertMessages type='danger' messages={formErrors} />
+        : null}
     </div>
   )
 }

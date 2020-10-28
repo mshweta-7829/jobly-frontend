@@ -51,6 +51,7 @@ function LoginForm(props) {
   )
 }
 
+//TODO: Remove these before deploying
 LoginForm.defaultProps = {
   initialFromData: {
     username: "testuser",

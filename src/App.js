@@ -6,6 +6,7 @@ import NavBar from './nav/NavBar';
 import CurrentUserContext from './auths/CurrentUserContext';
 import JoblyApi from './apis/JoblyAPI';
 import useLocalStorage from './hooks/useLocalStorage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 // Key name for storing token in localStorage in case page refreshes
@@ -47,8 +48,8 @@ function App() {
           JoblyApi.token = token;
           const user = await JoblyApi.getUser(payload.username);
           setCurrentUser(user);
-        } catch (err) {
-          console.error('Error loading the user!', err)
+        } catch (errors) {
+          console.error('Error loading the user!', errors)
           setCurrentUser(null);
         }
       }
@@ -74,9 +75,9 @@ function App() {
       const token = await JoblyApi.registerUser(signupData);
       setToken(token);
       return { success: true };
-    } catch (err) {
-      console.error('Signup Unsuccessful!', err);
-      return { success: false, err};
+    } catch (errors) {
+      console.error('Signup Unsuccessful!', errors);
+      return { success: false, errors};
     }
   }
 
@@ -90,16 +91,22 @@ function App() {
       const token = await JoblyApi.loginUser(loginData);
       setToken(token);
       return { success: true };
-    } catch (err) {
-      console.error('Login Unsuccessful!', err);
-      return { success: false, err};
+    } catch (errors) {
+      console.error('Login Unsuccessful!', errors);
+      return { success: false, errors};
     }
   }
 
   /**Updates a user's profile */
   async function updateProfile(updateData) {
-    const user = await JoblyApi.updateUser(currentUser.username, updateData)
-    setCurrentUser(user);
+    try {
+      const user = await JoblyApi.updateUser(currentUser.username, updateData);
+      setCurrentUser(user);
+      return { success: true };
+    } catch(errors) {
+      console.error('User Profile Update Unsuccessful!', errors);
+      return { success: false, errors};
+    }
   }
 
   function logout() {
