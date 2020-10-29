@@ -56,59 +56,81 @@ function ProfileForm({ updateProfile }) {
         : null}
         
       <form onSubmit={handleSubmit} className='SignupForm'>
-        <div className='form-group'>
+        <div className='form-group row'>
+        <div className="col-sm-2">
         <label>Username :</label>
-          <i> {currentUser.username}</i>
+        </div>
+          <div className="col-sm-6">
+            <input 
+              className="form-control"
+              readOnly value={currentUser.username}
+            />
+          </div>
         </div>
 
-        <div className="form-group">
-          <label htmlFor={`Profile-firstName`}>First Name</label>
-          <input
-            id={`Profile-firstName`}
-            name='firstName'
-            className="form-control"
-            onChange={handleChange}
-            value={formData.firstName}
-            aria-label='firstName'
-          />
+        <div className="form-group row">
+        <div className="col-sm-2">
+          <label htmlFor={`Profile-firstName`}>First Name :</label>
+        </div>
+          <div className="col-sm-6">
+            <input
+              id={`Profile-firstName`}
+              name='firstName'
+              className="form-control"
+              onChange={handleChange}
+              value={formData.firstName}
+              aria-label='firstName'
+            />
+          </div>
         </div>
 
-        <div className="form-group">
-          <label htmlFor={`Profile-lastName`}>Last Name</label>
-          <input
-            id={`Profile-lastName`}
-            name='lastName'
-            className="form-control"
-            onChange={handleChange}
-            value={formData.lastName}
-            aria-label='lastName'
-          />
+        <div className="form-group row">
+        <div className="col-sm-2">
+          <label htmlFor={`Profile-lastName`}>Last Name :</label>
+        </div>
+          <div className="col-sm-6">
+            <input
+              id={`Profile-lastName`}
+              name='lastName'
+              className="form-control"
+              onChange={handleChange}
+              value={formData.lastName}
+              aria-label='lastName'
+            />
+          </div>
         </div>
 
-        <div className="form-group">
-          <label htmlFor={`Profile-email`}>Email</label>
-          <input
-            id={`Profile-email`}
-            name='email'
-            className="form-control"
-            onChange={handleChange}
-            value={formData.email}
-            aria-label='email'
-          />
+        <div className="form-group row">
+        <div className="col-sm-2">
+          <label htmlFor={`Profile-email`}>Email :</label>
+        </div>
+          <div className="col-sm-6">
+            <input
+              id={`Profile-email`}
+              name='email'
+              className="form-control"
+              onChange={handleChange}
+              value={formData.email}
+              aria-label='email'
+            />
+          </div>
         </div>
 
-        <div className="form-group">
-          <label htmlFor={`Profile-password`}>Confirm Password to Make Changes</label>
-          <input
-            id={`Profile-password`}
-            name='password'
-            className="form-control"
-            onChange={handleChange}
-            value={formData.password}
-            aria-label='email'
-          />
+        <div className="form-group row">
+        <div className="col-sm-2">
+          <label htmlFor={`Profile-password`}>Confirm Password to Make Changes :</label>
         </div>
-
+          <div className="col-sm-6">
+            <input
+              id={`Profile-password`}
+              name='password'
+              className="form-control"
+              onChange={handleChange}
+              value={formData.password}
+              aria-label='email'
+            />
+          </div>
+        </div>
         <button className="btn btn-primary">Save changes</button>
       </form>
     </div>
