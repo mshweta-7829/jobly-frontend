@@ -127,6 +127,7 @@ function ProfileForm({ updateProfile }) {
               onChange={handleChange}
               value={formData.password}
               aria-label='email'
+              type='password'
               required
             />
           </div>

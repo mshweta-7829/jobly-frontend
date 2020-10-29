@@ -66,6 +66,7 @@ function LoginForm({login}) {
                 onChange={handleChange}
                 value={formData.password}
                 aria-label="Password"
+                type='password'
                 required
               />
             </div>
