@@ -51,6 +51,11 @@ function ProfileForm({ updateProfile }) {
 
   return (
     <div>
+
+      {formErrors.length
+        ? <AlertMessages type='danger' messages={formErrors} />
+        : null}
+        
       <form onSubmit={handleSubmit} className='SignupForm'>
         <div className='form-group'>
           <label>Username</label>
@@ -107,10 +112,6 @@ function ProfileForm({ updateProfile }) {
 
         <button>Save changes</button>
       </form>
-
-      {formErrors.length
-        ? <AlertMessages type='danger' messages={formErrors} />
-        : null}
     </div>
   )
 }
