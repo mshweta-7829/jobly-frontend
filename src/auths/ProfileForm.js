@@ -17,8 +17,8 @@ import AlertMessages from '../common/AlertMessages';
  */
 function ProfileForm({ updateProfile }) {
   const [formErrors, setFormErrors] = useState([]);
-  const currentUser = useContext(CurrentUserContext);
-
+  const {currentUser} = useContext(CurrentUserContext);
+  
   let initialFormData = {
     firstName: currentUser.firstName,
     lastName: currentUser.lastName,
@@ -26,7 +26,7 @@ function ProfileForm({ updateProfile }) {
     password: ''
   }
 
-  // console.log("initial data", initialFormData)
+   console.log("initial data", initialFormData)
   const [formData, setFormData] = useState(initialFormData);//Runs only once
 
 
@@ -37,7 +37,6 @@ function ProfileForm({ updateProfile }) {
     }));
   }
 
-  // console.log('formData', formData);
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
