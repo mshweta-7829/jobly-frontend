@@ -21,6 +21,7 @@ function LoginForm({login}) {
   async function handleSubmit(evt) {
     evt.preventDefault()
     const result = await login(formData)
+    console.log("errors", result.errors)
     if (result.success) {
       history.push('/companies');
     } else {
@@ -33,7 +34,7 @@ function LoginForm({login}) {
       {formErrors.length
         ? <AlertMessages
             type='danger'
-            message={formErrors} 
+            messages={formErrors} 
           />
         : null}
         
