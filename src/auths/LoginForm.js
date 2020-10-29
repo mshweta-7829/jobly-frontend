@@ -38,31 +38,35 @@ function LoginForm({login}) {
         : null}
         
       <form className="LoginForm" onSubmit={handleSubmit}>
-
-        <div className="form-group">
-          <input
-            id="login-username"
-            name="username"
-            className="form-control"
-            placeholder="Username"
-            onChange={handleChange}
-            value={formData.username}
-            aria-label="Username"
-          />
+        <div className="form-group row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-6">
+              <input
+                id="login-username"
+                name="username"
+                className="form-control"
+                placeholder="Username"
+                onChange={handleChange}
+                value={formData.username}
+                aria-label="Username"
+              />
+            </div>
         </div>
 
-        <div className="form-group">
-          <input
-            id="login-password"
-            name="password"
-            className="form-control"
-            placeholder="Password"
-            onChange={handleChange}
-            value={formData.password}
-            aria-label="Password"
-          />
+        <div className="form-group row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-6">
+              <input
+                id="login-password"
+                name="password"
+                className="form-control"
+                placeholder="Password"
+                onChange={handleChange}
+                value={formData.password}
+                aria-label="Password"
+              />
+            </div>
         </div>
-
         <button className="btn btn-primary">Submit</button>
       </form>
     </div>

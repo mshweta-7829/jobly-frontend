@@ -35,14 +35,17 @@ function SearchForm(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} >
+    <form className="form-inline" onSubmit={handleSubmit} >
+      <div className="form-group mx-sm-4 mb-2">
         <input type='text'
+          class="form-control"
           name={formInputNameAttr}
           value={formData.name}
           placeholder='Enter a search term...'
           onChange={handleChange}
         />
-      <button className="btn btn-primary">Search</button>
+        </div>
+      <button className="btn btn-primary button mb-2">Search</button>
     </form>
   )
 }
