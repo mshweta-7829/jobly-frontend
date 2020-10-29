@@ -4,7 +4,6 @@ import CurrentUserContext from './auths/CurrentUserContext.js'
 
 function HomePage() {
   const { currentUser } = useContext(CurrentUserContext);
-  console.log('in HomePage. CurrentUser:', currentUser);
   function renderWelcomeMsgOrButtons() {
     if (currentUser) {
       return (
@@ -15,8 +14,8 @@ function HomePage() {
     } else {
       return (
         <>
-          <Link className="btn btn-primary" to="/login"> Log in </Link>
-          <Link className="btn btn-primary" to="/signup"> Sign Up</Link>
+          <Link style={{ margin: '.5rem' }} className="btn btn-primary" to="/login"> Log in </Link>
+          <Link style={{ margin: '.5rem' }} className="btn btn-primary" to="/signup"> Sign Up</Link>
         </>
       )
     }
@@ -30,7 +29,7 @@ function HomePage() {
       <div>
         <p>All the jobs in one, convenient place.</p>
       </div>
-      <div>
+      <div >
           {renderWelcomeMsgOrButtons()}
       </div>
     </div>
