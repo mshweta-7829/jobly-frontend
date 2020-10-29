@@ -26,7 +26,6 @@ function ProfileForm({ updateProfile }) {
     password: ''
   }
 
-   console.log("initial data", initialFormData)
   const [formData, setFormData] = useState(initialFormData);//Runs only once
 
 
@@ -128,6 +127,7 @@ function ProfileForm({ updateProfile }) {
               onChange={handleChange}
               value={formData.password}
               aria-label='email'
+              required
             />
           </div>
         </div>

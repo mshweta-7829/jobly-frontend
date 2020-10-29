@@ -62,6 +62,7 @@ function SignupForm({ initialFormData, signup }) {
               onChange={handleChange}
               name='username'
               value={formData.username}
+              required
             />
           </div>
         </div>
@@ -79,6 +80,7 @@ function SignupForm({ initialFormData, signup }) {
               onChange={handleChange}
               value={formData.password}
               aria-label='email'
+              required
             />
           </div>
         </div>

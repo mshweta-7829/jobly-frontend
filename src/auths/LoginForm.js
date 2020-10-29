@@ -50,6 +50,7 @@ function LoginForm({login}) {
                 onChange={handleChange}
                 value={formData.username}
                 aria-label="Username"
+                required
               />
             </div>
         </div>
@@ -65,6 +66,7 @@ function LoginForm({login}) {
                 onChange={handleChange}
                 value={formData.password}
                 aria-label="Password"
+                required
               />
             </div>
         </div>
