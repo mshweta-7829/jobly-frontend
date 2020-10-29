@@ -75,7 +75,7 @@ function SignupForm({ initialFormData, signup }) {
         
       <form onSubmit={handleSubmit} className='SignupForm'>
         {renderFormInputs()}
-        <button class="btn btn-primary">Submit</button>
+        <button className="btn btn-primary">Submit</button>
       </form>
     </div>
   )
