@@ -31,7 +31,7 @@ import ProtectedRoute from './ProtectedRoute.js';
 function Routes({ signup, login, updateProfile }) {
 
   return (
-    <div className="container Routes">
+    <div className="Routes">
       <Switch>
 
       <Route exact path="/" >

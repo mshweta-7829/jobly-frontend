@@ -47,7 +47,7 @@ function NavBar({ logout }) {
   }
 
   return (
-    <div className="container NavBar">
+    <div className="NavBar">
       <NavLink exact to="/">Jobly</NavLink>
       {showLoggedinOrSignupNavs()}
     </div>
