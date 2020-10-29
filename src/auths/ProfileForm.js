@@ -57,8 +57,8 @@ function ProfileForm({ updateProfile }) {
         
       <form onSubmit={handleSubmit} className='SignupForm'>
         <div className='form-group'>
-          <label>Username</label>
-          <p>{currentUser.username}</p>
+        <label>Username :</label>
+          <i> {currentUser.username}</i>
         </div>
 
         <div className="form-group">
@@ -109,7 +109,7 @@ function ProfileForm({ updateProfile }) {
           />
         </div>
 
-        <button class="btn btn-primary">Save changes</button>
+        <button className="btn btn-primary">Save changes</button>
       </form>
     </div>
   )
