@@ -62,6 +62,7 @@ function SignupForm({ initialFormData, signup }) {
               onChange={handleChange}
               name='username'
               value={formData.username}
+              placeholder="UserName"
               required
             />
           </div>
@@ -81,6 +82,7 @@ function SignupForm({ initialFormData, signup }) {
               value={formData.password}
               aria-label='email'
               required
+              placeholder="Password"
             />
           </div>
         </div>
@@ -97,6 +99,7 @@ function SignupForm({ initialFormData, signup }) {
               onChange={handleChange}
               value={formData.firstName}
               aria-label='firstName'
+              placeholder="First Name"
             />
           </div>
         </div>
@@ -113,6 +116,7 @@ function SignupForm({ initialFormData, signup }) {
               onChange={handleChange}
               value={formData.lastName}
               aria-label='lastName'
+              placeholder="Last Name"
             />
           </div>
         </div>
@@ -129,6 +133,7 @@ function SignupForm({ initialFormData, signup }) {
               onChange={handleChange}
               value={formData.email}
               aria-label='email'
+              placeholder="Email"
             />
           </div>
         </div>
