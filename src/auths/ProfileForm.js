@@ -109,7 +109,7 @@ function ProfileForm({ updateProfile }) {
           />
         </div>
 
-        <button>Save changes</button>
+        <button class="btn btn-primary">Save changes</button>
       </form>
     </div>
   )

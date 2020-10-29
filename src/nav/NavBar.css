@@ -1,9 +1,13 @@
 .NavBar a{
   color: blue;
-  margin : 15px
+  margin : 20px;
 }
 
 .NavBar a.active{
   color:black;
   font-weight: bold;
+}
+
+.NavBar{
+  margin : 20px;
 }
