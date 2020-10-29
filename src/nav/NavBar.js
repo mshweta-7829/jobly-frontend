@@ -30,7 +30,7 @@ function NavBar({ logout }) {
     if (!currentUser) {
       return (
         <>
-          <NavLink to="/login">login</NavLink>
+          <NavLink to="/login">Login</NavLink>
           <NavLink to="/signup">Signup</NavLink>
         </>
       )
