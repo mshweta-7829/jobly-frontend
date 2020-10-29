@@ -164,7 +164,7 @@ class JoblyApi {
    * Returns:  
    * - JWT token (used to authenticate future requests)
    */
-  static async registerUser(userData){
+  static async registerUser(userData) {
     const res = await this.request(`auth/register`, userData, "post");
     return res.token
   }
@@ -178,14 +178,14 @@ class JoblyApi {
    * Returns  
    * - JWT token (used to authenticate future requests)
    */
-  static async loginUser(userData){
+  static async loginUser(userData) {
     const res = await this.request(`auth/token`, userData, "post");
     return res.token
   }
 
 
 
-   // User Methods
+  // User Methods
 
   /**Register an Admin
    * 
@@ -200,7 +200,7 @@ class JoblyApi {
    *      token : ""
    *    }
    */
-  static async registerAdmin(adminData){
+  static async registerAdmin(adminData) {
     const res = await this.request(`users/`, adminData, "post");
     return res
   }
@@ -211,7 +211,7 @@ class JoblyApi {
    * - array of user objects
    *    [ {username, firstName, lastName, email }, ... ]
    */
-  static async getUsers(){
+  static async getUsers() {
     const res = await this.request(`users/`);
     return res.users
   }
@@ -226,8 +226,8 @@ class JoblyApi {
    *    { username, firstName, lastName, isAdmin, jobs }
    *        where jobs is { id, title, companyHandle, companyName, state }
    */
-  static async getUser(username){
-    const res = await this.request(`users/${username}`, {"username" : username});
+  static async getUser(username) {
+    const res = await this.request(`users/${username}`, { "username": username });
     return res.user
   }
 
@@ -240,7 +240,7 @@ class JoblyApi {
    * Returns 
    * - { username, firstName, lastName, email, isAdmin }
    */
-  static async updateUser(username, userData){
+  static async updateUser(username, userData) {
     const res = await this.request(`users/${username}`, userData, "patch");
     return res.user
   }
@@ -253,7 +253,7 @@ class JoblyApi {
    * Returns 
    * -  { username }
    */
-  static async deleteUser(username){
+  static async deleteUser(username) {
     const res = await this.request(`users/${username}`, {}, "delete");
     return res.deleted
   }
@@ -267,7 +267,7 @@ class JoblyApi {
    * Returns 
    * -  { jobId }
    */
-  static async applyForJob(username, jobId){
+  static async applyForJob(username, jobId) {
     const res = await this.request(`users/${username}/jobs/${jobId}`, {}, "post");
     return res.applied
   }
@@ -278,6 +278,6 @@ class JoblyApi {
 //   "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
 //   "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
-JoblyApi.token=localStorage.getItem('token');
+JoblyApi.token = localStorage.getItem('token');
 
 export default JoblyApi

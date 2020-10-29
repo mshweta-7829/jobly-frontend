@@ -29,7 +29,6 @@ import ProtectedRoute from './ProtectedRoute.js';
  *                  }
  * */
 function Routes({ signup, login, updateProfile }) {
-  console.log("login", login)
 
   return (
     <div className="container Routes">

@@ -25,10 +25,6 @@ function useLocalStorage(key, firstValue = null) {
   const [item, setItem] = useState(initialValue);
 
   useEffect(function setKeyInLocalStorage() {
-    // console.log('in useLocalStorage effect hook');
-    // console.log('in useLocalStorage effect hook. Key:', key);
-    // console.log('in useLocalStorage effect hook. Item:', item);
-
 
     if (item === null) {
       localStorage.removeItem(key);
@@ -36,9 +32,6 @@ function useLocalStorage(key, firstValue = null) {
       localStorage.setItem(key, item);
     }
   }, [key, item]);
-
-  // console.log('after useLocalStorage effect. Key:', key);
-  // console.log('after useLocalStorage effect. Item:', item);
 
   // return state and the setter function. App.js will then set state with this hook
   return [item, setItem];

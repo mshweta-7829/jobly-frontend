@@ -30,7 +30,7 @@ function HomePage() {
         <p>All the jobs in one, convenient place.</p>
       </div>
       <div >
-          {renderWelcomeMsgOrButtons()}
+        {renderWelcomeMsgOrButtons()}
       </div>
     </div>
   )

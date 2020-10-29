@@ -21,7 +21,7 @@ function SignupForm({ initialFormData, signup }) {
   const history = useHistory();
 
   function handleChange(evt) {
-    const {name, value} = evt.target;
+    const { name, value } = evt.target;
     setFormData(formData => ({
       ...formData, [name]: value
     }));
@@ -50,14 +50,14 @@ function SignupForm({ initialFormData, signup }) {
       {formErrors.length
         ? <AlertMessages type='danger' messages={formErrors} />
         : null}
-        
+
       <form onSubmit={handleSubmit} className='SignupForm'>
         <div className='form-group row'>
-        <div className="col-sm-2">
-        <label>Username :</label>
-        </div>
+          <div className="col-sm-2">
+            <label>Username :</label>
+          </div>
           <div className="col-sm-6">
-            <input 
+            <input
               className="form-control"
               onChange={handleChange}
               name='username'
@@ -67,9 +67,9 @@ function SignupForm({ initialFormData, signup }) {
         </div>
 
         <div className="form-group row">
-        <div className="col-sm-2">
-          <label>Password :</label>
-        </div>
+          <div className="col-sm-2">
+            <label>Password :</label>
+          </div>
           <div className="col-sm-6">
             <input
               id={`Profile-password`}
@@ -84,9 +84,9 @@ function SignupForm({ initialFormData, signup }) {
         </div>
 
         <div className="form-group row">
-        <div className="col-sm-2">
-          <label htmlFor={`Profile-firstName`}>First Name :</label>
-        </div>
+          <div className="col-sm-2">
+            <label htmlFor={`Profile-firstName`}>First Name :</label>
+          </div>
           <div className="col-sm-6">
             <input
               id={`Profile-firstName`}
@@ -100,9 +100,9 @@ function SignupForm({ initialFormData, signup }) {
         </div>
 
         <div className="form-group row">
-        <div className="col-sm-2">
-          <label htmlFor={`Profile-lastName`}>Last Name :</label>
-        </div>
+          <div className="col-sm-2">
+            <label htmlFor={`Profile-lastName`}>Last Name :</label>
+          </div>
           <div className="col-sm-6">
             <input
               id={`Profile-lastName`}
@@ -116,9 +116,9 @@ function SignupForm({ initialFormData, signup }) {
         </div>
 
         <div className="form-group row">
-        <div className="col-sm-2">
-          <label htmlFor={`Profile-email`}>Email :</label>
-        </div>
+          <div className="col-sm-2">
+            <label htmlFor={`Profile-email`}>Email :</label>
+          </div>
           <div className="col-sm-6">
             <input
               id={`Profile-email`}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 /**Renders search form
  * 
@@ -15,7 +15,7 @@ import {useHistory} from 'react-router-dom'
  */
 //TODO:improve comments about props and historyRoute
 function SearchForm(props) {
-  const {addSearchFilters, formInputNameAttr, redirectRoute} = props
+  const { addSearchFilters, formInputNameAttr, redirectRoute } = props
   const [formData, setFormData] = useState({});
   const history = useHistory();
 
@@ -31,7 +31,7 @@ function SearchForm(props) {
     evt.preventDefault();
     addSearchFilters(formData);
     setFormData({});
-    history.push({redirectRoute})
+    history.push({ redirectRoute })
   }
 
   return (
@@ -44,7 +44,7 @@ function SearchForm(props) {
           placeholder='Enter a search term...'
           onChange={handleChange}
         />
-        </div>
+      </div>
       <button className="btn btn-primary button mb-2">Search</button>
     </form>
   )
@@ -52,4 +52,3 @@ function SearchForm(props) {
 
 export default SearchForm
 
- 

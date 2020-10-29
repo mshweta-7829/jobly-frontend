@@ -25,7 +25,6 @@ import CurrentUserContext from "../auths/CurrentUserContext";
  */
 function NavBar({ logout }) {
   const  {currentUser}  = useContext(CurrentUserContext)
-  console.log('in NavBar. CurrentUser:', currentUser);
 
   function showLoggedinOrSignupNavs() {
     if (!currentUser) {
