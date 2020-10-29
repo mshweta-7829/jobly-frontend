@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AlertMessages from '../common/AlertMessages';
 
-function LoginForm(props) {
-  const { initialFromData, login } = props
+function LoginForm({login}) {
+  const initialFromData = {
+    username: "",
+    password: ""
+  }
   const [formData, setFormData] = useState(initialFromData)
   const [formErrors, setFormErrors] = useState([]);
   const history = useHistory();
@@ -64,14 +67,6 @@ function LoginForm(props) {
       </form>
     </div>
   )
-}
-
-//TODO: Remove these before deploying
-LoginForm.defaultProps = {
-  initialFromData: {
-    username: "testuser",
-    password: "password"
-  }
 }
 
 export default LoginForm;
