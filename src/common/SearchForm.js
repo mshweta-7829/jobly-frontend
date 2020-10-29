@@ -38,7 +38,7 @@ function SearchForm(props) {
     <form className="form-inline" onSubmit={handleSubmit} >
       <div className="form-group mx-sm-4 mb-2">
         <input type='text'
-          class="form-control"
+          className="form-control"
           name={formInputNameAttr}
           value={formData.name}
           placeholder='Enter a search term...'

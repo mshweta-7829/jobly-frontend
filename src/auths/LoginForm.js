@@ -39,8 +39,8 @@ function LoginForm({login}) {
         
       <form className="LoginForm" onSubmit={handleSubmit}>
         <div className="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-6">
+          <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Email</label>
+            <div className="col-sm-6">
               <input
                 id="login-username"
                 name="username"
@@ -54,8 +54,8 @@ function LoginForm({login}) {
         </div>
 
         <div className="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-6">
+          <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Password</label>
+            <div className="col-sm-6">
               <input
                 id="login-password"
                 name="password"
