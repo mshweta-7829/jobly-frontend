@@ -48,25 +48,6 @@ function SignupForm({ initialFormData, signup }) {
     // setFormData(initialFormData);
   }
 
-
-  function renderFormInputs() {
-    return(
-      Object.keys(initialFormData).map(input => (
-        <div className="form-group">
-          <input
-            id={`signup-${input}`}
-            name={input}
-            className="form-control"
-            placeholder={input}
-            onChange={handleChange}
-            value={formData[input]}
-            aria-label={input}
-          />
-        </div>
-      ))
-    )
-  }
-
   return (
     <div>
       {formErrors.length
@@ -74,8 +55,86 @@ function SignupForm({ initialFormData, signup }) {
         : null}
         
       <form onSubmit={handleSubmit} className='SignupForm'>
-        {renderFormInputs()}
-        <button className="btn btn-primary">Submit</button>
+        <div className='form-group row'>
+        <div className="col-sm-2">
+        <label>Username :</label>
+        </div>
+          <div className="col-sm-6">
+            <input 
+              className="form-control"
+              onChange={handleChange}
+              name='username'
+              value={formData.username}
+            />
+          </div>
+        </div>
+
+        <div className="form-group row">
+        <div className="col-sm-2">
+          <label>Password :</label>
+        </div>
+          <div className="col-sm-6">
+            <input
+              id={`Profile-password`}
+              name='password'
+              type='password'
+              className="form-control"
+              onChange={handleChange}
+              value={formData.password}
+              aria-label='email'
+            />
+          </div>
+        </div>
+
+        <div className="form-group row">
+        <div className="col-sm-2">
+          <label htmlFor={`Profile-firstName`}>First Name :</label>
+        </div>
+          <div className="col-sm-6">
+            <input
+              id={`Profile-firstName`}
+              name='firstName'
+              className="form-control"
+              onChange={handleChange}
+              value={formData.firstName}
+              aria-label='firstName'
+            />
+          </div>
+        </div>
+
+        <div className="form-group row">
+        <div className="col-sm-2">
+          <label htmlFor={`Profile-lastName`}>Last Name :</label>
+        </div>
+          <div className="col-sm-6">
+            <input
+              id={`Profile-lastName`}
+              name='lastName'
+              className="form-control"
+              onChange={handleChange}
+              value={formData.lastName}
+              aria-label='lastName'
+            />
+          </div>
+        </div>
+
+        <div className="form-group row">
+        <div className="col-sm-2">
+          <label htmlFor={`Profile-email`}>Email :</label>
+        </div>
+          <div className="col-sm-6">
+            <input
+              id={`Profile-email`}
+              name='email'
+              className="form-control"
+              onChange={handleChange}
+              value={formData.email}
+              aria-label='email'
+            />
+          </div>
+        </div>
+
+        <button className="btn btn-primary">Save changes</button>
       </form>
     </div>
   )
